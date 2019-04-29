@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/U1/aufgabe_1_2_flink_table_api/aufgabe_1_2_flink_table_api.iml" filepath="$PROJECT_DIR$/U1/aufgabe_1_2_flink_table_api/aufgabe_1_2_flink_table_api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/U1/aufgabe_1_2_flink_table_api/src/main/main.iml" filepath="$PROJECT_DIR$/U1/aufgabe_1_2_flink_table_api/src/main/main.iml" />
+    </modules>
+  </component>
+</project>
