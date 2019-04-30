@@ -51,20 +51,38 @@ public class AufgabeTableAPI {
 
         //////////
         // Hier Aufgabe 1.2.b)  bearbeiten:
+        System.out.println("Aufgabe 1.2b");
         //////////
 
         //////////
         // a)
+        //Table filtered = teile.filter("Farbe === 'Blau' && Gewicht < 8");
+        System.out.println("a)");
+        Table aTeile = teile.filter("Farbe == 'Blau' && Gewicht < 8");
+        DataSet<Teil> teileDataA = tEnv.toDataSet(aTeile, Teil.class);
+        teileDataA.print();
         //////////
 
 
         //////////
         // b)
+        //Table filtered = teile.filter("Ort == 'Marburg'")
+        //                      .select("PNr");
+        System.out.println("b)");
+        Table bTeile = projekte.filter("Ort == 'Marburg'")
+                               .select("PName");
+        DataSet<String> teileDataB = tEnv.toDataSet(bTeile, String.class);
+        teileDataB.print();
         //////////
 
 
         //////////
         // c)
+        System.out.println("c)");
+        Table cTeile = teile.select("TNr")
+                            .minus(lieferungen.select("TNr"));
+        DataSet<Long> teileDataC = tEnv.toDataSet(cTeile, Long.class);
+        teileDataC.print();
         //////////
 
 
