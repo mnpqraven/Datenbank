@@ -58,7 +58,7 @@ public class AufgabeTableAPI {
         // a)
         //Table filtered = teile.filter("Farbe === 'Blau' && Gewicht < 8");
         System.out.println("a)");
-        Table aTeile = teile.filter("Farbe == 'Blau' && Gewicht < 8");
+        Table aTeile = teile.filter("Farbe === 'Blau' && Gewicht < 8");
         DataSet<Teil> teileDataA = tEnv.toDataSet(aTeile, Teil.class);
         teileDataA.print();
         //////////
@@ -66,10 +66,8 @@ public class AufgabeTableAPI {
 
         //////////
         // b)
-        //Table filtered = teile.filter("Ort == 'Marburg'")
-        //                      .select("PNr");
         System.out.println("b)");
-        Table bTeile = projekte.filter("Ort == 'Marburg'")
+        Table bTeile = projekte.filter("Ort === 'Marburg'")
                                .select("PName");
         DataSet<String> teileDataB = tEnv.toDataSet(bTeile, String.class);
         teileDataB.print();
