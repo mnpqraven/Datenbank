@@ -1,0 +1,10 @@
+---
+title: Übungzettel 1
+author: Truong, testfran, Zykov
+output: pdf_document
+---
+- Code von Aufgabe 1.2 ist in `AufgabeTableAPI.java`
+\centerline{\includegraphics[width=1\textwidth]{img/1.jpg}}
+\centerline{\includegraphics[width=1\textwidth]{img/2.jpg}}
+\centerline{\includegraphics[width=1\textwidth]{img/3.jpg}}
+\centerline{\includegraphics[width=1\textwidth]{img/4.jpg}}
