@@ -1,6 +1,8 @@
 ---
 title: Aufgabe 2
 author: Truong, testfran, Ilya
+header-includes:
+    - \usepackage{upgreek}
 output: pdf_document
 ---
 
@@ -12,7 +14,12 @@ RA:
 
 1.
 $\pi_{TNr}$(TEIL) -  $\pi_{TNr}$(LIEFERUNG)
+
 2.
+$\pi{PNr}(\pi_{PNr, OrtP}(P) \Join_{OrtL \neq OrtP} ( \pi_{lNrt,OrtL}(L) \Join \pi_{llLNr,llPNr}(LL)))$
+
+3.
+$\pi_{PName}(( \pi{PNr,TNr}(LL) \div \pi{TNr}(TEIL))\Join (PROJEKT))$
 
 
 TK:
@@ -27,5 +34,13 @@ TK:
 # Aufgabe 2
 
 # Aufgabe 3
+1.
+$count_{PNr}(TEIL \Join_{Gewicht \geq 50} PROJEKT)$
+2.
+$\uptau_{c,LName}(\rho_{LName,c} \leftarrow sum_{Menge}(L \Join LL))$
+3.
+$\pi_{Ort}(\pi_{NLame} ( L \Join_{\rho_{LNr,c}\leftarrow count_{LNr} } LL))$
+4.
+$\pi_{PNr}(P \Join_{Farbe = 'schwarz' \wedge avg_{PNr \times Menge > 60}} LL \Join T)$
 
 # Aufgabe 4
