@@ -6,8 +6,8 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="flinktableapi" />
         <module name="aufgabe_1_2_flink_table_api" />
+        <module name="flinktableapi" />
       </profile>
     </annotationProcessing>
   </component>
