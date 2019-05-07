@@ -1,0 +1,31 @@
+---
+title: Aufgabe 2
+author: Truong, testfran, Ilya
+output: pdf_document
+---
+
+\large$\pi_{LName}$
+
+# Aufgabe 1
+
+RA:
+
+1.
+$\pi_{TNr}$(TEIL) -  $\pi_{TNr}$(LIEFERUNG)
+2.
+
+
+TK:
+
+{ x $|$ ($\exists$ u:LL(u) $\vee$ u[TNr] = x[TNr] ) $\wedge$
+
+($\forall$ u:$\neg$LL(u) $\vee$ u[TNr] = x[TNr]) }
+
+
+{ x $|$ ($\exists$ u:LL(u) $\vee$ u[PNr] = x[PNr] )}
+
+# Aufgabe 2
+
+# Aufgabe 3
+
+# Aufgabe 4
