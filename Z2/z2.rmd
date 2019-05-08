@@ -20,7 +20,7 @@ $\wedge$ ( $\exists$ k: LL(k))
 $\wedge$ ( $\forall$ k: $\neg$k[TNr] = u[Tnr])}
 
 2. **RA**:
-$\pi{PNr}(\sigma_{OrtL\neq OrtP}(LL \Join \rho_{OrtL \leftarrow Ort}(L) \Join \rho_{OrtP \leftarrow Ort}(P)))$
+$\pi_{PNr}(\sigma_{OrtL\neq OrtP}(LL \Join \rho_{OrtL \leftarrow Ort}(L) \Join \rho_{OrtP \leftarrow Ort}(P)))$
 
 **TK**: { t $|$ ( $\exists$ u: LL(u) $\wedge$ t = u[Pnr])
 
@@ -53,14 +53,14 @@ $\wedge$ ( $\exists$ v: LL(v) $\wedge$ v[LNr] = u[LNr] $\wedge$ v[TNr] = k[TNr])
 1.
 $count_{PNr}(\sigma_{Gewicht \geq 50}(T \Join LL))$
 2.
-$\uptau_{c,LName}(\upgamma_{LName,c \leftarrow sum_{Menge}}(L \Join LL))$
+$\uptau_{c,LName}(\upgamma_{LName,c \leftarrow sum(Menge)}(L \Join LL))$
 3.
-$\pi_{Ort}(\sigma_{c < 8} (L \Join_{\upgamma_{(LNr, c \leftarrow count(LNr))}} (LL)))$
+$\pi_{Ort}(\sigma_{c < 8} (L \Join \upgamma_{LNr, c \leftarrow count(LNr)} (LL)))$
 4.
 
 $A_1$ = $\upgamma_{PNr, c \leftarrow count(LNr)}(LL)$
 
-$A_2$ = $\upgamma_{PNr, m \leftarrow sum(Menge)}(LL \Join_{Farbe = 'Schwarz'}(T))$
+$A_2$ = $\upgamma_{PNr, m \leftarrow sum(Menge)}(LL \Join (\sigma_{Farbe = 'Schwarz'}(T)))$
 
 
 $\pi_{PNr}(\sigma_{(m/c > 60)}(A_1 \Join A_2))$
