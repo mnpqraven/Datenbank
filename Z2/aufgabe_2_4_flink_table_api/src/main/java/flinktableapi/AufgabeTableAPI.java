@@ -59,7 +59,7 @@ public class AufgabeTableAPI {
         Table a = teile.filter("Gewicht >= 50")
                 .join(lieferungen.as("LNr, lTNr, PNr, Menge"))
                 .where("TNr === lTNr")
-                .select("PNr.count as cnt");
+                .select("PNr.count.distinct as cnt");
         DataSet<Long> resultA = tEnv.toDataSet(a, Long.class);
         resultA.print();
         //////////
