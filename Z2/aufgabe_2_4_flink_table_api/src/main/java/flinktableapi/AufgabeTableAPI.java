@@ -54,22 +54,61 @@ public class AufgabeTableAPI {
         //////////
 
         //////////
-        
+        // a)
+        System.out.println("a) An wie viele Projekte wurden Teile geliefert, die mindestens 50kg gewogen haben?");
+        Table a = teile.filter("Gewicht >= 50")
+                .join(lieferungen.as("LNr, lTNr, PNr, Menge"))
+                .where("TNr === lTNr")
+                .select("PNr.count as cnt");
+        DataSet<Long> resultA = tEnv.toDataSet(a, Long.class);
+        resultA.print();
         //////////
 
 
         //////////
         // b)
+        System.out.println("b) Die Namen der Lieferanten aufsteigend sortiert nach Gesamtliefermenge (Summe):");
+        Table b = lieferanten.join(lieferungen.as("L, TNr, PNr, Menge"))
+                .where("LNr === L")
+                .groupBy("LName")
+                .select("LName, Menge.sum as Summe")
+                .orderBy("LName, Summe.asc");
+        DataSet<String> resultB = tEnv.toDataSet(b.select("LName"), String.class);
+        resultB.print();
+        DataSet<Long> resultSumme = tEnv.toDataSet(b.select("Summe"), Long.class);
+        resultSumme.print();
         //////////
 
 
         //////////
         // c)
+        System.out.println("c) Woher kommen die Lieferanten, die weniger als 8 Lieferungen durchgeführt haben?");
+        Table c = lieferungen.groupBy("LNr")
+                .select("LNr, LNr.count as Anzahl")
+                .join(lieferanten.as("L, LName, Ort"))
+                .where("LNr === L")
+                .filter("Anzahl < 8")
+                .select("Ort");
+        DataSet<String> resultC = tEnv.toDataSet(c, String.class);
+        resultC.print();
         //////////
 
 
         //////////
         // d)
+        System.out.println("d) Die Projektnummern der Projekte, die im Durchschnitt mehr als 60 schwarze Teile geliefert bekommen haben.");
+        Table anzahlVonLieferungen = lieferungen.groupBy("PNr").select("PNr, LNr.count as AnzahlVonLieferungen");
+        Table anzahlVonSchwarzenTeilen = teile.filter("Farbe === 'Schwarz'")
+                .join(lieferungen.as("LNr, T, PNr, Menge"))
+                .where("TNr === T")
+                .groupBy("PNr")
+                .select("PNr, Menge.sum as SchwarzeTeileSumme");
+        Table d = anzahlVonLieferungen.join(anzahlVonSchwarzenTeilen.as("P, SchwarzeTeileSumme"))
+                .where("PNr === P")
+                .filter("(SchwarzeTeileSumme / AnzahlVonLieferungen) > 60")
+                .select("PNr");
+        DataSet<Long> resultD = tEnv.toDataSet(d, Long.class);
+        resultD.print();
         //////////
 
 
