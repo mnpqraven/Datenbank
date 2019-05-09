@@ -1,12 +1,12 @@
 ---
 title: Aufgabe 2
-author: Truong, testfran, Ilya
+author: Truong, testfran, Zykov
 header-includes:
     - \usepackage{upgreek}
 output: pdf_document
 ---
 
-\large$\pi_{LName}$
+\large
 
 # Aufgabe 1
 
@@ -17,7 +17,7 @@ $\pi_{TNr}$(T) -  $\pi_{TNr}$(LL)
 
 $\wedge$ ( $\exists$ k: LL(k))
 
-$\wedge$ ( $\forall$ k: $\neg$k[TNr] = u[Tnr])}
+$\wedge$ ( $\forall$ k: LL(k) $\rightarrow$ $\neg$k[TNr] = u[TNr])}
 
 2. **RA**:
 $\pi_{PNr}(\sigma_{OrtL\neq OrtP}(LL \Join \rho_{OrtL \leftarrow Ort}(L) \Join \rho_{OrtP \leftarrow Ort}(P)))$
@@ -40,7 +40,7 @@ $\wedge$ ( $\exists$ k: LL(k) $\wedge$ k[PNr] = u[PNr])
 
 $\wedge$ ( $\exists$ v: T(v))
 
-$\wedge$ ( $\forall$ v: v[TNr] = k[TNr])}
+$\wedge$ ( $\forall$ v: T(v) $\rightarrow$ v[TNr] = k[TNr])}
 
 # Aufgabe 2
 {t $|$ ($\exists$ u: L(u) $\wedge$ t = u[LName] $\wedge \neg$u[Ort] = 'Marburg' )
