@@ -1,0 +1,54 @@
+---
+title: tutor
+author: othi
+output: pdf_document
+---
+
+# 3.1
+\begin{verbatim}
+CREATE TABLE eis (
+    id int primary key,
+    sorte varchar(80) not null,
+    preis numeric(4,2) not null --4 vor komma, 2 nach komma
+    );
+
+CREATE TABLE Verkauf (
+    id int primary key,
+    datum date not null,
+    eis_id int not null references eis(id),
+    menge int not null CHECK(menge > 0)
+    );
+\end{verbatim}
+
+# 3.2
+\begin{verbatim}
+INSERT INTO eis(id, sorte, preis) VALUES
+    (1, 'Schokolade', 1.00),
+    (2, 'Vanilla', 1.50);
+\end{verbatim}
+
+# 3.3
+
+1.
+\begin{verbatim}
+SELECT preis
+FROM eis
+WHERE sorte='Schokolade';
+\end{verbatim}
+
+2.
+\begin{verbatim}
+SELECT sorte DISTINCT
+FROM eis
+WHERE NOT (preis BETWEEN 1 AND 3);
+\end{verbatim}
+
+3.
+\begin{verbatim}
+SELECT sorte
+FROM eis
+WHERE id NOT IN (
+    SELECT eis_id
+    FROM verkauf
+    );
+\end{verbatim}
