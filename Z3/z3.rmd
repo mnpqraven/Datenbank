@@ -1,0 +1,66 @@
+---
+title: bungsblatt 3
+author: Truong, testfran, Zykov
+output: pdf_document
+---
+
+# Aufgabe 1
+
+# Aufgabe 2
+
+# Aufgabe 3
+
+1.
+\begin{verbatim}
+SELECT (LNr, TNr, PNr, (Menge * Gewicht) as gesamt_gewicht)
+FROM Lieferung JOIN Teil
+\end{verbatim}
+
+2.
+\begin{verbatim}
+SELECT Anzahlteile as sum(Menge)
+FROM Teil JOIN Lieferung
+WHERE Farbe = 'Rot'
+\end{verbatim}
+
+# Aufgabe 4
+
+1.
+\begin{verbatim}
+Select TNr
+FROM Teil
+Where Gewicht >= 10 AND Gewicht <= 50
+\end{verbatim}
+
+2.
+\begin{verbatim}
+SELECT DISTINCT TNr
+FROM Teil JOIN Lieferung
+WHERE
+\end{verbatim}
+
+3.
+\begin{verbatim}
+SELECT PName
+FROM Projekt JOIN Lieferung
+WHERE
+\end{verbatim}
+
+4.
+\begin{verbatim}
+SELECT ??? as avg_lieferung_pro_lieferant
+FROM Teil JOIN Lieferung JOIN Lieferant
+WHERE ???
+\end{verbatim}
+
+5.
+\begin{verbatim}
+SELECT
+FROM
+WHERE
+\end{verbatim}
+
+6.
+\begin{verbatim}
+\end{verbatim}
+
