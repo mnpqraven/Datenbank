@@ -1,0 +1,18 @@
+Aufgabe 2.1 7.5/8
+a) 2/2
+b) 3/3 
+c) Ganzes Relationsschema von Projekt, nicht nur PName 2.5/3
+
+
+Aufgabe 2.2 2/2
+
+Aufgabe 2.3 5/6
+a) 1/1
+b) Gruppieren nach LNr wegen Eindeutigkeit, Projektion auf LName fehlt 0.5/1
+c) 2/2
+d) Einfacher mit Aggregat avg 2/2
+
+Aufgabe 2.4 3.5/4
+d) findet Projekt 2 nicht 0.5/1
+
+Gesamt 17.5/20
