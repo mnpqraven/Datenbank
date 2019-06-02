@@ -32,12 +32,12 @@ WHERE NOT EXISTS
 ## Aufgabe 2
 a.
 \begin{verbatim}
-CREATE TABLE Schiffe(schiff_nr int PRIMARY KEY NOT NULL);
+CREATE TABLE Schiffe(schiff_nr int PRIMARY KEY);
 
 CREATE TABLE Piraten(
-pId numeric(8, 2) PRIMARY KEY NOT NULL,
+pId numeric(8, 2) PRIMARY KEY,
 pName varchar(50) NOT NULL UNIQUE,
-pShout varchar(50) DEFAULT 'Arr!',
+pShout varchar(50) DEFAULT 'Arr!' NOT NULL,
 pFakeHand int NOT NULL CHECK(pFakeHand BETWEEN 0 AND 2),
 ShipNr int CONSTRAINT angeheuert REFERENCES Schiffe(schiff_nr) ON DELETE CASCADE);
 \end{verbatim}
