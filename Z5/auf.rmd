@@ -1,0 +1,60 @@
+---
+title: Übungsblatt 5
+author: Truong, testfran, Ilya
+output: pdf_document
+---
+
+## Aufgabe 1
+`count` version:
+\begin{verbatim}
+SELECT LNr
+FROM (SELECT * FROM LIEFERUNG NATURAL JOIN TEIL
+      WHERE Farbe = 'grün') A
+GROUP BY LNr
+HAVING count(distinct PNr) = (SELECT count(distinct PNr) FROM A)
+\end{verbatim}
+
+\begin{verbatim}
+SELECT LNr
+FROM (SELECT * FROM LIEFERUNG NATURAL JOIN TEIL
+      WHERE Farbe = 'grün') A
+WHERE LNr NOT EXISTS (SELECT *
+                  FROM TEIL NATURAL JOIN LIEFERUNG B
+                  GROUP BY PNr
+                  HAVING Farbe != 'grün' and count(distinct TNr) = (SELECT count(distinct TNr) FROM B GROUP BY PNr))
+\end{verbatim}
+
+## Aufgabe 2
+a.
+\begin{verbatim}
+CREATE TABLE pirate(
+pId NOT NULL PRIMARY KEY,
+pName NOT NULL UNIQUE,
+pShout varchar(20) DEFAULT "Arr!",
+pFakeHand int NOT NULLT CHECK(pHandCount between 0 and 2) DEFAULT 0,
+schiff_nr int
+);
+\end{verbatim}
+
+b.
+\begin{verbatim}
+ALTER TABLE pirate
+ADD CONSTRAINT fakeHand CHECK(pHandCount > 0 AND pShout = 'arr');
+\end{verbatim}
+
+c.
+\begin{verbatim}
+ALTER TABLE pirate
+DROP CONSTRAINT fakeHand;
+\end{verbatim}
+
+d.
+\begin{verbatim}
+CREATE ASSERTION noShoutCliche AS CHECK (
+  SELECT count(*) FROM pirate
+  WHERE count(SELECT * FROM pirate WHERE pShout = 'arr') / count(pShout) < 0.9
+)
+\end{verbatim}
+
+## Aufgabe 3
+
