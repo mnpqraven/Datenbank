@@ -1,0 +1,63 @@
+---
+title: Übungsblatt 5
+author: Truong, Testfran, Zykov
+output: pdf_document
+---
+
+## Aufgabe 1
+`count` version:
+\begin{verbatim}
+SELECT LNr
+FROM (SELECT * 
+           FROM LIEFERUNG NATURAL JOIN TEIL 
+           WHERE Farbe = 'grün') A
+GROUP BY LNr
+HAVING count(distinct PNr) = (SELECT count(distinct PNr) FROM A);
+\end{verbatim}
+
+\begin{verbatim}
+SELECT LNr
+FROM (SELECT * 
+           FROM LIEFERUNG NATURAL JOIN TEIL
+           WHERE Farbe = 'grün') A1
+WHERE NOT EXISTS 
+	(SELECT distinct PNr 
+	 FROM (SELECT * 
+	            FROM LIEFERUNG NATURAL JOIN TEIL 
+	            WHERE Farbe = 'grün') A2
+               WHERE NOT EXISTS (SELECT distinct PNr FROM A2 WHERE A2.LNr = A1.LNr));
+                  
+\end{verbatim}
+
+## Aufgabe 2
+a.
+\begin{verbatim}
+CREATE TABLE Schiffe(schiff_nr int PRIMARY KEY NOT NULL);
+
+CREATE TABLE Piraten(
+pId numeric(8, 2) PRIMARY KEY NOT NULL,
+pName varchar(50) NOT NULL UNIQUE,
+pShout varchar(50) DEFAULT 'Arr!',
+pFakeHand int NOT NULL CHECK(pFakeHand BETWEEN 0 AND 2),
+ShipNr int CONSTRAINT angeheuert REFERENCES Schiffe(schiff_nr) ON DELETE CASCADE);
+\end{verbatim}
+
+b.
+\begin{verbatim}
+ALTER TABLE Piraten
+ADD CONSTRAINT Arr_Pirate CHECK (pFakeHand = 0 OR pShout LIKE '%arr%');
+\end{verbatim}
+
+c.
+\begin{verbatim}
+ALTER TABLE Piraten DROP CONSTRAINT Arr_Pirate;
+\end{verbatim}
+
+d.
+\begin{verbatim}
+CREATE ASSERTION noShoutCliche CHECK (
+  (SELECT count(*) FROM Piraten WHERE pShout LIKE '%arr%') 
+  <= 0,9 *  (SELECT count(*) FROM Piraten)
+);
+\end{verbatim}
+## Aufgabe 3
