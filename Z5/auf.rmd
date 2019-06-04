@@ -8,8 +8,8 @@ output: pdf_document
 `count` version:
 \begin{verbatim}
 SELECT LNr
-FROM (SELECT * 
-           FROM LIEFERUNG NATURAL JOIN TEIL 
+FROM (SELECT *
+           FROM LIEFERUNG NATURAL JOIN TEIL
            WHERE Farbe = 'grün') A
 GROUP BY LNr
 HAVING count(distinct PNr) = (SELECT count(distinct PNr) FROM A);
@@ -17,16 +17,16 @@ HAVING count(distinct PNr) = (SELECT count(distinct PNr) FROM A);
 
 \begin{verbatim}
 SELECT LNr
-FROM (SELECT * 
+FROM (SELECT *
            FROM LIEFERUNG NATURAL JOIN TEIL
            WHERE Farbe = 'grün') A1
-WHERE NOT EXISTS 
-	(SELECT distinct PNr 
-	 FROM (SELECT * 
-	            FROM LIEFERUNG NATURAL JOIN TEIL 
+WHERE NOT EXISTS
+	(SELECT distinct PNr
+	 FROM (SELECT *
+	            FROM LIEFERUNG NATURAL JOIN TEIL
 	            WHERE Farbe = 'grün') A2
                WHERE NOT EXISTS (SELECT distinct PNr FROM A2 WHERE A2.LNr = A1.LNr));
-                  
+
 \end{verbatim}
 
 ## Aufgabe 2
@@ -56,8 +56,9 @@ ALTER TABLE Piraten DROP CONSTRAINT Arr_Pirate;
 d.
 \begin{verbatim}
 CREATE ASSERTION noShoutCliche CHECK (
-  (SELECT count(*) FROM Piraten WHERE pShout LIKE '%arr%') 
+  (SELECT count(*) FROM Piraten WHERE pShout LIKE '%arr%')
   <= 0,9 *  (SELECT count(*) FROM Piraten)
 );
 \end{verbatim}
+
 ## Aufgabe 3
