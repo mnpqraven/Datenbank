@@ -1,5 +1,5 @@
 ---
-title: Übungsblatt 5
+title: Uebungsblatt 5
 author: Truong, Testfran, Zykov
 output: pdf_document
 ---
@@ -10,7 +10,7 @@ output: pdf_document
 SELECT LNr
 FROM (SELECT *
            FROM LIEFERUNG NATURAL JOIN TEIL
-           WHERE Farbe = 'grün') A
+           WHERE Farbe = 'gruen') A
 GROUP BY LNr
 HAVING count(distinct PNr) = (SELECT count(distinct PNr) FROM A);
 \end{verbatim}
@@ -19,21 +19,21 @@ HAVING count(distinct PNr) = (SELECT count(distinct PNr) FROM A);
 SELECT LNr
 FROM (SELECT *
            FROM LIEFERUNG NATURAL JOIN TEIL
-           WHERE Farbe = 'grün') A1
+           WHERE Farbe = 'gruen') A1
 WHERE NOT EXISTS
 	(SELECT distinct PNr
 	 FROM (SELECT *
 	            FROM LIEFERUNG NATURAL JOIN TEIL
-	            WHERE Farbe = 'grün') A2
+	            WHERE Farbe = 'gruen') A2
                WHERE NOT EXISTS (SELECT distinct PNr FROM A2 WHERE A2.LNr = A1.LNr));
 
 \end{verbatim}
 
 ## Aufgabe 2
+
 a.
 \begin{verbatim}
 CREATE TABLE Schiffe(schiff_nr int PRIMARY KEY);
-
 CREATE TABLE Piraten(
 pId numeric(8, 2) PRIMARY KEY,
 pName varchar(50) NOT NULL UNIQUE,
@@ -62,3 +62,4 @@ CREATE ASSERTION noShoutCliche CHECK (
 \end{verbatim}
 
 ## Aufgabe 3
+- Siehe auf53.pdf
