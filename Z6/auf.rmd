@@ -1,0 +1,147 @@
+---
+title: Blatt 6
+author: Truong, Zykov, testfran
+output: pdf_document
+---
+
+# Aufgabe 1
+H<UE>lle(F,{A}) = {A,B,C}
+
+H<UE>lle(F,{B}) = {B}
+
+H<UE>lle(F,{A,B}) = {A,B,C}
+
+# Aufgabe 2
+
+F: {A,B} > E
+
+&nbsp;&nbsp;&nbsp;{D,E} > C
+
+&nbsp;&nbsp;&nbsp;A > C
+
+&nbsp;&nbsp;&nbsp;{B,E} > A
+
+&nbsp;&nbsp;&nbsp;D > {B,E}
+
+1. **Linksreduktion:**
+
+&nbsp;&nbsp;&nbsp;{A,B} > E
+
+B ist nicht <UE>berfl<UE>ssig
+
+A ist nicht <UE>berfl<UE>ssig
+
+&nbsp;&nbsp;&nbsp;{D,E} > C zu D > C
+
+D ist nicht <UE>berfl<UE>ssig
+
+E ist <UE>berfl<UE>ssig, da D > {B,E} > A > C
+
+&nbsp;&nbsp;&nbsp;H{B,E} > A
+
+B ist nicht <UE>berfl<UE>ssig
+
+E ist nicht <UE>berfl<UE>ssig
+
+zw result:
+
+F = {{A,B} > E, D > C, A > C, {B,E} > A, D > {B,E}}
+
+2. **Rechtsreduktion:**
+
+&nbsp;&nbsp;&nbsp;D > {B,E}
+
+B ist nicht <UE>berfl<UE>ssig
+
+E ist nicht <UE>berfl<UE>ssig
+
+zw result:
+
+F = {{A,B} > E, D > C, A > C, {B,E} > A, D > {B,E}}
+
+3. Es gibt keine FD der Form K > (null symbol)
+
+4. **End result:**
+
+F = {{A,B} > E, A > C, {B,E} > A, D > {B,C,E}}
+
+# Aufgabe 3
+a.
+
+Zerlegung ist nicht verlustlos, da A join B $\neq$ Buchverkauf
+
+Bsp:
+
+OKOKO GIUA OK MAN O GIUA OK MAN `Buchverkauf`
+
+|Autor_Name|Autor_EMail|Buchname|ISBN|Verkaufpreis|
+|----------|-----------|--------|-----|-|
+|John Doe|john@hotmail.com|Book1|I11|4.00|
+|John Doe|doe@hotmail.com|Book2|I22|4.00|
+|Musterman|musterman@hotmail.com|Book3|I33|4.00|
+
+
+OKOKO GIUA OK MAN O GIUA OK MAN `A`
+
+|Autor_Name|Autor_EMail|ISBN|
+|----------|-----------|----|
+|John Doe  |john@hotmail.com     |I11|
+|John Doe  |doe@hotmail.com      |I22|
+|Musterman |musterman@hotmail.com|I33|
+
+OKOKO GIUA OK MAN O GIUA OK MAN `B`
+
+|Autor_Name|Buchname|Verkaufpreis|
+|----------|--------|-|
+|John Doe|Book1|4.00|
+|John Doe|Book2|4.00|
+|Musterman|Book3|4.00|
+
+A join B
+
+|Autor_Name|Autor_EMail|Buchname|ISBN|Verkaufpreis|
+|----------|-----------|--------|-----|-|
+|John Doe|john@hotmail.com|Book1|I11|4.00|
+|John Doe|john@hotmail.com|Book2|I11|4.00|
+|John Doe|doe@hotmail.com|Book2|I22|4.00|
+|John Doe|doe@hotmail.com|Book1|I22|4.00|
+|Musterman|musterman@hotmail.com|Book3|I33|4.00|
+
+Zerlegung ist nicht h<UE>llentreu, da {ISBN} > {Autor_Name, Buchname, Verkaufspreis} weder zu A noch zu B zugeordnet ist
+
+b.
+
+- Zerlegung ist h<UE>llentreu, weil $F_1$: {Autor_Name} > {Auto_EMail} zu A zugeordnet ist und $F_2$: {ISBN} > {Autor_Name, Buchname, Verkaufspreis} zu B zugeordnet ist, und $F^+ = (F_1 \cup F_2)^+$
+
+- Zerlegung ist verlustlos, da $A \cap B$ = {Autor_Name}, und
+
+{Autor_Name} > {Autor_Name, Autor_EMail} $\in F^+$ und
+
+{ISBN} > {Autor_Name} > {Autor_EMail}, d.h. `Buchverkauf` ist aus A und B wieder rekonstruierbar
+
+
+# Aufgabe 4
+a.
+- 3NF:
+  - Kein Attribut A mit 2 Eigenschaften
+  - A ist Nicht-Prime
+  - A ist von einem Schl<UE>sselkandidat transitiv abhangig
+- BCNF: Warenlager von {Warenlager} > {WarenNr} ist kein Schl<UE>sselkandidat
+
+b.
+
+`A{RechnungsNr, WarenNr, Menge}`
+
+`B{WarenNr, Warenlager}`
+
+- Zerlegung ist h<UE>llentreu, weil $F_A$: {{RechnungsNr} > {WarenNr, Menge}} zu A zugeordnet ist und $F_B$: {{WarenNr} > {Warenlager}, {Warenlager} > {WarenNr}} zu B zugeordnet ist, und $F^+ = (F_A \cup F_B)^+$
+
+- Zerlegung ist verlustlos, da $A \cap B$ = {WarenNr}, und
+
+{WarenNr} > {Warenlager, WarenNr} $\in F^+$ und
+
+{RechnungsNr, WarenNr} > {WarenNr} > {Warenlager}, d.h. `Rechnung` ist aus A und B wieder rekonstruierbar
+
+# TODO:
+- > to right arrow
+- <UE> to german ue
