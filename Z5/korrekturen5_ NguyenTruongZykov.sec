@@ -1,0 +1,42 @@
+﻿Aufgabe 5.1 5/7
+not exists: Einschränkung auf PNr am Ende, neue Tabelle im letzten Teil:
+WHERE NOT EXISTS (SELECT distinct PNr FROM Lieferung x WHERE x.LNr = A1.LNr and x.PNr = A2.PNr))
+Einschränkung auf Farbe = 'grün' nur bei Projekten, weniger Unteranfragen in FROM-Klauseln 2/3.5
+count: from A geht nicht, Unteranfrage neu, findet nur Lieferanten die grüne Teile liefern 3/3.5
+
+Richtige Lösung:
+select LNr
+from Lieferung natural join Teil
+where PNr in (select distinct PNr from Lieferung natural join Teil where Farbe ='grün')
+group by LNr
+having count(distinct PNr) = (select count (distinct PNr)
+	from Lieferung natural join Teil where Farbe ='grün');
+
+Für jeden Lieferant, prüft ob es existiert ein grünes Projekt, das nicht durch ihn geliefert wurde. Es soll nein sein.
+
+select LNr
+from Lieferant l
+where not exists (select *
+	from (Lieferung natural join Teil) p 
+	where Farbe = 'grün'
+		and not exists (select *
+			from Lieferung ll
+			where p.PNr = ll. PNr and l.LNr = ll.LNr));
+
+
+
+Aufgabe 5.2 8/8
+a) 3/3
+b) 2/2
+c) 1/1
+d) 2/2
+
+Aufgabe 5.3 4.5/5
+- Bundesligaspieltag -> Schiedsrichter-Spiel 1:1-Beziehung (1,1:1,1)
+			Team-Spiel N:1 (2,2:1,1)
+
+
+
+- 0.5 Syntax (referenzieren von Unteranfragen so nicht erlaubt)
+
+Gesamt 17/20
