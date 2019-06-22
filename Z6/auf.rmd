@@ -1,0 +1,126 @@
+---
+title: Blatt 6
+author: Truong, Zykov, testfran
+output: pdf_document
+header-includes:
+- \usepackage{amssymb}
+---
+
+# Aufgabe 1
+Hülle(F,{A}) = {A,B,C}
+
+Hülle(F,{B}) = {B}
+
+Hülle(F,{A,B}) = {A,B,C}
+
+# Aufgabe 2
+
+F: {A,B} $\rightarrow$ E
+
+&nbsp;&nbsp;&nbsp;{D,E} $\rightarrow$ C
+
+&nbsp;&nbsp;&nbsp;A $\rightarrow$ C
+
+&nbsp;&nbsp;&nbsp;{B,E} $\rightarrow$ A
+
+&nbsp;&nbsp;&nbsp;D $\rightarrow$ {B,E}
+
+1. **Linksreduktion:**
+
+&nbsp;&nbsp;&nbsp;{D,E} $\rightarrow$ C zu D $\rightarrow$ C
+
+D ist nicht überflüssig
+
+E ist überflüssig, da D $\rightarrow$ {B,E} $\rightarrow$ A $\rightarrow$ C
+
+Zwischen Ergebnis:
+
+F = {{A,B} $\rightarrow$ E, D $\rightarrow$ C, A $\rightarrow$ C, {B,E} $\rightarrow$ A, D $\rightarrow$ {B,E}}
+
+2. **Rechtsreduktion:**
+
+&nbsp;&nbsp;&nbsp;D $\rightarrow$ {C} zu D $\rightarrow \varnothing$
+
+C ist überflüssig, da D $\rightarrow$ {B,E} $\rightarrow$ A $\rightarrow$ C
+
+Zwischen Ergebnis:
+
+F = {{A,B} $\rightarrow$ E, D $\rightarrow \varnothing$, A $\rightarrow$ C, {B,E} $\rightarrow$ A, D $\rightarrow$ {B,E}}
+
+3. **Entfernen** D $\rightarrow \varnothing$
+
+4. **End Ergebnis:**
+
+F = {{A,B} $\rightarrow$ E, A $\rightarrow$ C, {B,E} $\rightarrow$ A, D $\rightarrow$ {B,E}}
+
+# Aufgabe 3
+a.
+
+Zerlegung ist nicht verlustlos, da A join B $\neq$ Buchverkauf
+
+Bsp:
+
+`Buchverkauf`
+
+|Autor_Name|Autor_EMail|Buchname|ISBN|Verkaufpreis|
+|----------|-----------|--------|-----|-|
+|John Doe|john@hotmail.com|Book1|I11|4.00|
+|John Doe|doe@hotmail.com|Book2|I22|4.00|
+|Musterman|musterman@hotmail.com|Book3|I33|4.00|
+
+
+`A` Table:
+
+|Autor_Name|Autor_EMail|ISBN|
+|----------|-----------|----|
+|John Doe  |john@hotmail.com     |I11|
+|John Doe  |doe@hotmail.com      |I22|
+|Musterman |musterman@hotmail.com|I33|
+
+`B` Table:
+
+|Autor_Name|Buchname|Verkaufpreis|
+|----------|--------|-|
+|John Doe|Book1|4.00|
+|John Doe|Book2|4.00|
+|Musterman|Book3|4.00|
+
+A $\Join$ B Table:
+
+|Autor_Name|Autor_EMail|Buchname|ISBN|Verkaufpreis|
+|----------|-----------|--------|-----|-|
+|John Doe|john@hotmail.com|Book1|I11|4.00|
+|John Doe|john@hotmail.com|Book2|I11|4.00|
+|John Doe|doe@hotmail.com|Book2|I22|4.00|
+|John Doe|doe@hotmail.com|Book1|I22|4.00|
+|Musterman|musterman@hotmail.com|Book3|I33|4.00|
+
+Zerlegung ist nicht hüllentreu, da {ISBN} $\rightarrow$ {Autor_Name, Buchname, Verkaufspreis} weder zu A noch zu B zugeordnet ist
+
+b.
+
+- Zerlegung ist hüllentreu, weil $F_1$: {Autor_Name} $\rightarrow$ {Auto_EMail} zu A zugeordnet ist und $F_2$: {ISBN} $\rightarrow$ {Autor_Name, Buchname, Verkaufspreis} zu B zugeordnet ist, und $F = F_1 \cup F_2$
+
+- Zerlegung ist verlustlos, da $A \cap B$ = {Autor_Name}, und
+
+{Autor_Name} $\rightarrow$ {Autor_Name, Autor_EMail} $\in F^+$
+
+\pagebreak
+
+# Aufgabe 4
+a.
+- 3NF:
+  - Es gibt kein Attribut A in `Rechnung` mit 2 folgenden Eigenschaften:
+    - A ist Nicht-Prime
+    - A ist von einem Schlüsselkandidat transitiv abhangig
+- BCNF: `Warenlager` von {Warenlager} $\rightarrow$ {WarenNr} ist kein Schlüsselkandidat
+
+b.
+
+`A{RechnungsNr, WarenNr, Menge}`
+
+`B{WarenNr, Warenlager}`
+
+- Zerlegung ist hüllentreu, weil $F_A$: {{RechnungsNr} $\rightarrow$ {WarenNr, Menge}} zu A zugeordnet ist und $F_B$: {{WarenNr} $\rightarrow$ {Warenlager}, {Warenlager} $\rightarrow$ {WarenNr}} zu B zugeordnet ist, und $F = F_A \cup F_B$
+
+- Zerlegung ist verlustlos, da $A \cap B$ = {WarenNr}, und {WarenNr} $\rightarrow$ {Warenlager, WarenNr} $\in F^+$

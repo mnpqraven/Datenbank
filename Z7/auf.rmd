@@ -1,0 +1,184 @@
+---
+title: Übungsblatt 7
+author: Truong, testfran, Zykov
+output: pdf_document
+header-includes:
+    - \usepackage{amsmath,xcolor,listings,xparse}
+---
+
+# Aufgabe 1
+a.
+
+**Linksreduktion:**
+
+A $\rightarrow$ F
+
+F $\rightarrow$ E
+
+D $\rightarrow$ F
+
+E $\rightarrow$ D
+
+C $\rightarrow$ A
+
+(B,C) $\rightarrow$ F zu C $\rightarrow$ F
+
+- B ist überflüssig, da C $\rightarrow$ A $\rightarrow$ F
+- C ist nicht überflüssig
+
+(A,B,C) $\rightarrow$ E zu C $\rightarrow$ E
+
+- A ist überflüssig, da (B,C) $\rightarrow$ A $\rightarrow$ F $\rightarrow$ E $\Rightarrow$ FD zu (B,C) $\rightarrow$ E
+- B ist überflüssig, da C $\rightarrow$ A $\rightarrow$ F $\rightarrow$ E $\Rightarrow$ FD zu C $\rightarrow$ E
+- C ist nicht überflüssig
+
+Zwischenergebnis:
+
+A $\rightarrow$ F, F $\rightarrow$ E, D $\rightarrow$ F, E $\rightarrow$ D, C $\rightarrow$ A, C $\rightarrow$ F, C $\rightarrow$ E
+
+**Rechtsreduktion:**
+
+A $\rightarrow$ F
+
+F $\rightarrow$ E
+
+D $\rightarrow$ F
+
+E $\rightarrow$ D
+
+C $\rightarrow$ A
+
+C $\rightarrow$ F zu C $\rightarrow$ $\varnothing$
+
+* F ist überflüssig, da C $\rightarrow$ A $\rightarrow$ F
+
+C $\rightarrow$ E zu C $\rightarrow$ $\varnothing$
+
+* E ist überflüssig, da C $\rightarrow$ A $\rightarrow$ F $\rightarrow$ E
+
+Zwischenergebnis:
+
+A $\rightarrow$ F, F $\rightarrow$ E, D $\rightarrow$ F, E $\rightarrow$ D, C $\rightarrow$ A, C $\rightarrow$ $\varnothing$, C $\rightarrow$ $\varnothing$
+
+**entfernen C $\rightarrow$ $\varnothing$**
+
+**Kanonischer Überdeckung**
+
+Endergebnis:
+
+A $\rightarrow$ F, F $\rightarrow$ E, D $\rightarrow$ F, E $\rightarrow$ D, C $\rightarrow$ A
+
+b.
+2. Schritt:
+
+* R1 = {A, F}
+* R2 = {F, E}
+* R3 = {D, F}
+* R4 = {E, D}
+* R5 = {C, A}
+
+3. Schritt:
+Keines der in Schritt 2 erzeugten Schemata enthält einen Kandidatenschlüssel (B,C) , wird zusätzlich eine Relation R6 = {B,C} erzeugt.
+
+4. Schritt:
+   Keine Schemata sind in anderen Schemas enthalten.
+
+Zerlegung:
+
+* R1 = {A, F}
+* R2 = {F, E}
+* R3 = {D, F}
+* R4 = {E, D}
+* R5 = {C, A}
+* R6 = {B, C}
+
+
+c.
+Wenn keine FD aus der kanonischen Überdeckung Schlüsselkandidaten auf der linken Seite (LHS $\rightarrow$ RHS) hat.
+
+
+# Aufgabe 2
+a. **Inkonsistent Datenbank**
+
+Der Wert von C ist nicht aktualisiert, weil der Wert von B durch T1 geändert wurde.
+
+b. **Lost update**
+
+Änderung von T1 in B wird "Lost".
+
+c. **Inkonsistent Sicht auf die Datenbank**
+
+Der gelesende Wert von B durch T2 ist anders als der aktuelle Wert von B in DBS.
+
+# Aufgabe 3
+a.
+
+Nein, sie sind nicht äquivalent.
+
+T2.w(A) $<_{H1}$ T1.w(A) $\nLeftrightarrow$ T1.w(A) $<_{H2}$ T2.w(A)
+
+\definecolor{light-gray}{gray}{0.95}
+\NewDocumentCommand{\codewordblue}{v}{%
+\colorbox{light-gray}{%
+\texttt{\textcolor{blue}{#1}}}}
+
+\NewDocumentCommand{\codewordred}{v}{%
+\colorbox{light-gray}{%
+\texttt{\textcolor{red}{#1}}}}
+
+
+b. Die Historie ist serialisierbar.
+
+- Anfang:
+```
+<T1.bot,T2.bot,T3.bot,T4.bot,T1.r(a),T3.r(b),T1.w(c),T3.r(c),T2.r(b),T3.w(b),
+T4.r(c),T1.r(d),T2.w(e),T2.r(c),T1.c,T2.c,T4.c,T3.c>
+```
+
+- Tauschen \codewordred{T1.w(c)} mit \codewordblue{T3.r(b)}
+
+`<T1.bot,T2.bot,T3.bot,T4.bot,T1.r(a),` \codewordred{T1.w(c)}`,`\codewordblue{T3.r(b)}`,`
+
+`T3.r(c),T2.r(b),T3.w(b),T4.r(c),T1.r(d),T2.w(e),T2.r(c),T1.c,T2.c,T4.c,T3.c>`
+
+- Tauschen \codewordred{T2.r(b)} mit \codewordblue{T3.r(c)} und dann \codewordblue{T3.r(b)}
+
+`<T1.bot,T2.bot,T3.bot,T4.bot,T1.r(a),T1.w(c),`\codewordred{T2.r(b)}`,`\codewordblue{T3.r(b),T3.r(c)}`,T3.w(b),`
+
+`T4.r(c),T1.r(d),T2.w(e),T2.r(c),T1.c,T2.c,T4.c,T3.c>`
+
+- Schieben \codewordred{T1.r(d)} nach vorne
+
+`<T1.bot,T2.bot,T3.bot,T4.bot,T1.r(a),T1.w(c),`\codewordred{T1.r(d)}`,`
+
+\codewordblue{T2.r(b),T3.r(b),T3.r(c),T3.w(b),T4.r(c)}`,T2.w(e),T2.r(c),T1.c,T2.c,T4.c,T3.c>`
+
+
+- Schieben \codewordred{T2.w(e)} nach vorne
+
+`<T1.bot,T2.bot,T3.bot,T4.bot,T1.r(a),T1.w(c),T1.r(d),T2.r(b),`
+
+\codewordred{T2.w(e)}`,`\codewordblue{T3.r(b),T3.r(c),T3.w(b),T4.r(c)}`,T2.r(c),T1.c,T2.c,T4.c,T3.c>`
+
+- Schieben \codewordred{T2.r(c)} nach vorne
+
+`<T1.bot,T2.bot,T3.bot,T4.bot,T1.r(a),T1.w(c),T1.r(d),T2.r(b),T2.w(e),`
+
+\codewordred{T2.r(c)}`,`\codewordblue{T3.r(b),T3.r(c),T3.w(b),T4.r(c)}`,T1.c,T2.c,T4.c,T3.c>`
+
+- Tauschen alle `bot` und `commit`.
+```
+<T1.bot,T1.r(a),T1.w(c),T1.r(d),T1.c,T2.bot,T2.r(b),T2.w(e),T2.r(c),T2.c,
+T3.bot,T3.r(b),T3.r(c),T3.w(b),T3.c,T4.bot,T4.r(c),T4.c>
+```
+
+Es gibt Konflikte zwischen T1 und T2, T2 und T3, T1 ud T4
+
+Äquivalenten seriellen Ausführungsreihenfolgen der Transaktionen:
+\begin{center}
+ \begin{tabular}{|c c c c|} \hline
+T1 & T2 & T3 & T4 \\ \hline
+T1 & T2 & T4 & T3 \\ \hline
+T1 & T4 & T2 & T3 \\ \hline
+ \end{tabular}
+\end{center}

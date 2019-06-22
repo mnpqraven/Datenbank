@@ -9,11 +9,11 @@ a.
 \begin{verbatim}
 WITH RECURSIVE OberGeo(gid. gname, gparent)
 AS (
-    (SELECT * FROM hierachie
-    WHERE id IN (SELECT parent FROM hierarchie WHERE name ='Geo-Datenbanken'))
+    SELECT * FROM hierachie
+    WHERE id IN (SELECT parent FROM hierarchie WHERE name ='Geo-Datenbanken')
 UNION
-    (SELECT hierarchie.* FROM OberGeo, hierarchie
-    WHERE OberGeo.gparent = hierarchie.id)
+    SELECT hierarchie.* FROM OberGeo, hierarchie
+    WHERE OberGeo.gparent = hierarchie.id
 )
 SELECT * FROM OberGeo;
 \end{verbatim}
@@ -22,11 +22,11 @@ b.
 \begin{verbatim}
 WITH RECURSIVE Tree(rid, rname, rparent)
 AS (
-    (SELECT * FROM hierachie
-    WHERE name = 'Datenbanksysteme I')
+    SELECT * FROM hierachie
+    WHERE name = 'Datenbanksysteme I'
 UNION
-    (SELECT hierachie.* FROM Tree, hierachie
-    WHERE Tree.rparent = hierachie.id)
+    SELECT hierachie.* FROM Tree, hierachie
+    WHERE Tree.rparent = hierachie.id
 )
 SELECT count(*) from Tree;
 \end{verbatim}
@@ -43,14 +43,14 @@ d.
 \begin{verbatim}
 WITH RECURSIVE UnterHaupt(rid, rname, rparent)
 AS (
-    (SELECT * FROM hierachie
-    WHERE name = 'Hauptstudium')
+    SELECT * FROM hierachie
+    WHERE name = 'Hauptstudium'
 UNION
-    (SELECT hierachie.* FROM UnterHaupt, hierachie
-    WHERE hierachie.parent = UnterHaupt.rid)
+    SELECT hierachie.* FROM UnterHaupt, hierachie
+    WHERE hierachie.parent = UnterHaupt.rid
 )
 SELECT * FROM UnterHaupt
-WHERE name LIKE 'S%';
+WHERE rname LIKE 'S%';
 \end{verbatim}
 
 \pagebreak
@@ -59,13 +59,9 @@ WHERE name LIKE 'S%';
 a.
 \begin{verbatim}
 UPDATE GEHALT
-SET jahresgehalt = jahresgehalt - 2000
-WHERE jahresgehalt > 70000;
-\end{verbatim}
-\begin{verbatim}
-UPDATE GEHALT
-SET jahresgehalt = jahresgehalt * 1.05
-WHERE jahresgehalt <= 70000;
+SET jahresgehalt = CASE WHEN jahresgehalt > 70000 THEN jahresgehalt - 2000
+                        ELSE jahresgehalt * 1.05
+                    END CASE;
 \end{verbatim}
 
 b.
@@ -87,7 +83,8 @@ WHERE jahresgehalt >= ALL(SELECT jahresgehalt FROM GEHALT
 b.
 \begin{verbatim}
 SELECT GEHALT.*
-FROM GEHALT, (SELECT abteilung, avg(jahresgehalt) as AVGGehalt FROM GEHALT GROUP BY abteilung) T
+FROM GEHALT, (SELECT abteilung, avg(jahresgehalt) as AVGGehalt
+              FROM GEHALT GROUP BY abteilung) T
 WHERE GEHALT.abteilung = T.abteilung AND jahresgehalt > T.AVGGehalt;
 \end{verbatim}
 
