@@ -22,66 +22,145 @@ header-includes:
 # Aufgabe 1
 a.
 
-`<T1.bot,T2.bot,T3.bot,`\codewordblue{T1.slock(A)}`,T1.r(A),`\codewordblue{T2.slock(B)}`,T2.r(B),`\codewordred{T1.xlock(D)}
+`<T1.bot,T2.bot,T3.bot,`
 
-`,T1.r(D),`\codewordblue{T3.slock(C)}`,T3.r(C),`\codewordred{T2.xlock(C)}`,T2.r(C),`\codewordred{T3.xlock(D)}`,T3.r(D),T1.r(B),T1.w(A),`
+\codewordred{T1.xlock(A)}`,T1.r(A),`
 
-\codeword{T1.unlock(A),T1.unlock(D)}`,T2.w(B),`\codeword{T2.unlock(B)}`,T3.w(C),`\codeword{T3.unlock(C),T3.unlock(D)}`,T3.c,T2.c,T1.c>`
+\codewordblue{T2.slock(B)}`,T2.r(B),`
+
+\codewordblue{T1.slock(D)}`,T1.r(D),`
+
+\codewordblue{T3.slock(C)}`,T3.r(C),`
+
+\codewordblue{T2.slock(C)}`,T2.r(C),`
+
+\codewordblue{T3.slock(D)}`,T3.r(D),`
+
+\codewordblue{T1.slock(B)}`,T1.r(B),T1.w(A),`
+
+\codeword{T1.unlock(A),T1.unlock(D),T1.unlock(B)}`,`
+
+\codewordred{T2.xlock(B)}`,T2.w(B),`
+
+\codeword{T2.unlock(B),T2.unlock(C)}`,`
+
+\codewordred{T3.xlock(C)}`T3.w(C),`
+
+\codeword{T3.unlock(C),T3.unlock(D)}`,T3.c,T2.c,T1.c>`
+
+b.
+Die Lösung soll genauso aussehen.
+
+`<T1.bot,`\codewordred{T1.xlock(A),}\codewordblue{T1.slock(D),}\codewordblue{T1.slock(B)}
+
+`T2.bot,`\codewordblue{T2.slock(C),}\codewordred{T2.xlock(B)}
+
+`T3.bot,`\codewordblue{T3.slock(D),}\codewordred{T3.xlock(C)}
+
+`,T1.r(A),T2.r(B),T1.r(D),T3.r(C),T2.r(C),T3.r(D),`
+
+`,T1.r(B),T1.w(A),`
+
+\codeword{T1.unlock(A),T1.unlock(D),T1.unlock(B)}`,`
+
+
+`,T2.w(B),`
+
+\codeword{T2.unlock(B),T2.unlock(C)}`,`
+
+`T3.w(C),`
+
+\codeword{T3.unlock(C),T3.unlock(D)}`,T3.c,T2.c,T1.c>`
+
+Es gibt aber Probleme, dass:
+
+- T1 hat schon ein `slock(B)`. `T1.unlock(B)` soll vor `T2.xlock(B)` kommen, damit die Historie funktioneiert. Das geht nicht bei strikten 2PL.
+- T2 hat schon `slock(C)`. `T2.unlock(C)` soll vor `T2.xlock(C)` kommen, damit die Historie funktioneiert. Das geht nicht bei strikten 2PL.
 
 # Aufgabe 2
+T1: $write(*2),write(+100)$
+
+T2: $read(G1),read(G2)$
+
+(M1,1000), (M2,2000)
+
 a.
 Isolationslevel SERIALIZABLE
+
+  1. Fall: T1 < T2
+
+     G1 = G2 = 4100
+
+  2. Fall: T2 < T1
+
+     G1 = G2 = 3000
 
 b.
 Isolationslevel READ COMMITED
 
+  1. Fall aus a.
+
+     G1 = G2 = 4100
+  2. Fall aus a.
+
+     G1 = G2 = 3000
+  3. Fall: $read(G1) < write(*2) < write(+100) < read(G2)$
+
+     G1 = 3000; G2 = 4100
+
 c.
 Isolationslevel READ UNCOMMITED
+  1. Fall aus b.
+
+     G1 = G2 = 4100
+  2. Fall aus b.
+
+     G1 = G2 = 3000
+  3. Fall aus b.
+
+     G1 = 3000; G2 = 4100
+
+  4. Fall: $read(G1) < write(*2) < read(G2) < write(+100)$
+
+     G1 = 3000; G2 = 4000
+  5. Fall: $write(*2) < read(G1) < write(+100) < read(G2)$
+
+     G1 = 4000; G2 = 4100
+  6. Fall: $write(*2) < read(G1) < read(G2) < write(+100)$
+
+     G1 = G2 = 4000
 
 
 
 # Aufgabe 3
 a.
 
-* P1{A, B}
-* P2{C, D, E, F}
-* P3{G, H, I, J}
-
 Zeitpunkt 48: P1{A = 10, B =12}, P2 {C = 11, D = 6, E = 8, F = 10}, P3{G = 10, H = 14, I = 16, J = 22}
+
 - Winner-Transaktionen: T1, T3 (T1 und T3 sind commitet @Zeile 56, 57)
 - Loser-Transaktionen: T2, T4
 
 b.
+
 |Zeitpunkt|Protokoll|Kommentar|
 |---------|---------|---------|
-|58|<#58, T2, P3, J = J-9, J = J+9, #55>|UNDO from #55|
-|59|<#59, T4, P3, I = I-1, I = I+1, #54>|UNDO from #54|
-|60|<#60, T2, P2, D = D-2, D = D+2, #53>|UNDO from #53|
-|61|<#61, T1, P1, A = A-5, A = A+5, #52>|REDO from #52|
-|62|<#62, T4, P3, F = F+1, F = F-1, #51>|UNDO from #51|
-|63|<#63, T3, P3, H = H+1, H = H-1, #50>|REDO from #50|
+|59|<#59, T2, P3, J = J-9, , #55>|UNDO from #55|
+|60|<#60, T4, P3, I = I+1, , #54>|UNDO from #54|
+|61|<#61, T2, P2, D = D-2, , #53>|UNDO from #53|
+|62|<#62, T4, P3, F = F+1, , #51>|UNDO from #51|
+|63|<#63, T2, P2, E = E-1, , #46>|UNDO from #46|
+|64|<#64, T2, P2, C = C-1, , #45>|UNDO from #45|
 
 c.
-|Zeitpunkt|Protokoll|Kommentar|
-|---------|---------|---------|
-|48|<#48, CHECKPOINT>| |
-|49|<#49, T4, begin_TA,0>| |
-|50|<#50, T3, P3, H = H+1, H = H-1, #47>|REDO|
-|51|<#51, T4, P3, F = F-1, F = F+1, #49>|UNDO|
-|52|<#52, T1, P1, A = A-5, A = A+5, #42>|REDO|
-|53|<#53, T2, P2, D = D+2, D = D-2, #46>|UNDO|
-|54|<#54, T4, P3, I = I-1, I = I+1, #51>|UNDO|
-|55|<#55, T2, P3, J = J+9, J = J-9, #53>|UNDO|
-|56|<#56, T1, commit, #52>| |
-|57|<#57, T3, commit, #50>| |
+
+Nur REDO-Operationen werden ausgeführt.
 
 Werte nach Wieiderherstellung:
-from #52: P1: A-5 > 10-5=5
-from #53: P2: D+2 > 6+2=8
-from #54: P3: I-1 > 16-1=15
-from #55: P3: J+9 > 22+9=31
 
-=>
-P1 = {A=5. B=12}
-P2 = {C=11. D=8, E=8, F=10}
-P3 = {G=10, H=14, I=15, J=31}
+* from #50: P3: H+1 > 14+1=15
+* from #52: P1: A-5 > 10-5=5
+
+$\Rightarrow$
+P1 = {A=5. B=12},
+P2 = {C=11. D=6, E=8, F=10},
+P3 = {G=10, H=15, I=16, J=22}
