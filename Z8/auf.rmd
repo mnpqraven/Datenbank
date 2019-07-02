@@ -153,6 +153,10 @@ b.
 
 c.
 
+```{r echo=F,execute=F,message=F}
+#note: REDO
+#UNDO from checkpoint to begin_TA
+```
 Nur REDO-Operationen werden ausgeführt.
 
 Werte nach Wieiderherstellung:
