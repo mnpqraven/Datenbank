@@ -5,7 +5,7 @@ public class Aufgabe_9_1 {
 
     private static final String url = "jdbc:postgresql://localhost/Datenbank"; // Ersetze Datenbank durch deinen Datenbankssnamen
     private static final String user = "postgres";
-    private static final String password = ""; // Bitte hier dein Passwort für Postgresql eingeben Dennis.
+    private static final String password = ""; // Bitte hier dein Passwort für Postgresql eingeben.
 
     public static void main(String[] args) {
         System.out.print("Type in a SQL Query: ");
@@ -21,10 +21,10 @@ public class Aufgabe_9_1 {
             StringBuilder format = new StringBuilder();
             Object[] headers = new String[rsm.getColumnCount()];
             for (int i = 1; i <= rsm.getColumnCount(); i++) {
-                format.append("|%").append(i).append("$-12s|");
+                format.append("|  %").append(i).append("$-10s");
                 headers[i - 1] = rsm.getColumnName(i);
             }
-            format.append("\n");
+            format.append("|\n");
             System.out.format(format.toString(), headers);
             while (rs.next()) {
                 Object[] tuple = new Object[rsm.getColumnCount()];
@@ -34,7 +34,7 @@ public class Aufgabe_9_1 {
                 System.out.format(format.toString(), tuple);
             }
         } catch (Exception e) {
-            System.out.println("SQL Problem");
+            System.out.println("SQL Problem. Please check url, user and password!");
         }
     }
 }

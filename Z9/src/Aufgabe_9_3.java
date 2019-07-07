@@ -1,35 +1,50 @@
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Aufgabe_9_3 {
     private static final String url = "jdbc:postgresql://localhost/Datenbank"; // Ersetze Datenbank durch deinen Datenbankssnamen
     private static final String user = "postgres";
-    private static final String password = ""; // Bitte hier dein Passwort für Postgresql eingeben Dennis.
-    private static Connection con;
+    private static final String password = ""; // Bitte hier dein Passwort für Postgresql eingeben.
 
-    public static void main(String[] args) throws SQLException {
+    private static void youAreFired(int pnr) throws SQLException {
         try {
             Class.forName("org.postgresql.Driver");
-            con = DriverManager.getConnection(url, user, password);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        Connection con = DriverManager.getConnection(url, user, password);
+        Statement stmt = con.createStatement();
+        try {
             con.setAutoCommit(false);
             con.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
-            Statement stmt = con.createStatement();
-            int rs = stmt.executeUpdate("create or replace function youAreFired(pNummer IN INT) " +
-                    "returns void as " +
-                    "$$ begin " +
-                    "IF pNummer IN (select pnr from Personal P " +
-                    "where not exists (select mnr from PMzuteilung A1 where A1.pnr = P.pnr and not exists " +
-                    "(select pnr from PMzuteilung A2 where not A2.pnr = P.pnr and A2.mnr = A1.mnr))) " +
-                    "THEN " +
-                    "delete from Personal P where P.pnr = pNummer; " +
-                    "END IF; " +
-                    "end; $$ " +
-                    "LANGUAGE PLPGSQL;");
-
+            ResultSet mnrOperatedByPnr = stmt.executeQuery("select mnr from pmzuteilung where pnr = " + pnr + ";");
+            List<Integer> mnrOfPnr = new ArrayList<>();
+            while (mnrOperatedByPnr.next()) {
+                mnrOfPnr.add(mnrOperatedByPnr.getInt(1));
+            }
+            stmt.executeUpdate("delete from personal where pnr = " + pnr + ";");
+            for (Integer mnr : mnrOfPnr) {
+                ResultSet otherThatCanOperateMnrOfPnr = stmt.executeQuery("select pnr from pmzuteilung where mnr = " + mnr + ";");
+                if (!otherThatCanOperateMnrOfPnr.next()) {
+                  System.out.println(pnr + " can not be fired!");
+                  con.rollback();
+                  return;
+                }
+            }
             con.commit();
             con.close();
+            System.out.println(pnr + " (fired) deleted from personal.");
         } catch (Exception e) {
             con.rollback();
-            System.out.println("SQL Problem - Rolled back");
+            System.out.println("SQL Problem - Roll back!");
         }
+    }
+
+    public static void main(String[] args) throws SQLException {
+        // 67, 114 and 51 can operate Machine 93
+        youAreFired(67); // Can be deleted
+        youAreFired(114); // Can be deleted
+        youAreFired(51); // Can NOT be deleted!
     }
 }

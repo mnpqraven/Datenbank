@@ -1,0 +1,22 @@
+Aufgabe 8.1 5/7
+a) Immer xlock setzen wenn Objekt später von selber TA geschrieben wird
+   T2.xlock(B) vor T1.slock(B) -> T1 muss warten
+   T3.xlock(C) vor T2.slock(C) -> T2 muss warten  3/4
+b) 2-PS anderes Protokoll ohne slock und xlock
+   TA können erst lock, wenn Objekt wieder unlocked ist, d.h. bei Zugriff auf mind. ein
+   gleiches Obejekt, muss immer eine TA komplett durchlaufen, bevor die nächste startet  2/3
+
+Aufgabe 8.2 6/6
+a) 2/2
+b) 2/2
+c) 2/2
+
+Aufgabe 8.3 6/7
+a) 2/2
+b) LSN von UNDO verweist auf Vorgänger des rückgängig gemachten Eintrags der selben TA:
+   <#58, T2, P3, J = J-9, #53> 2.5/3
+c) P2: C und E werden bei UNDO um je 1 verringert 1.5/2
+
+
+
+Gesamt 17/20

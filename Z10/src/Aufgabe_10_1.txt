@@ -1,0 +1,21 @@
+CREATE or replace FUNCTION rtable (n INT)
+RETURNS TABLE (i INT, j INT, diff INT) AS
+$$ 
+BEGIN
+	LOOP
+		exit when (n <= 0);
+		SELECT INTO i floor(random() * 100)::int ;
+		SELECT INTO j floor(random() * 100)::int ;
+		diff := i - j;
+		n := n -1;
+		return next;
+	END LOOP;
+END;
+$$
+LANGUAGE PLPGSQL;
+
+Für ein hinreichend großes n ist Batch-Update mehrfach schneller als Single Update, d.h. die Laufzeit von Batch-Insert ist deutlich kleiner als die des Single-Inserts.
+Begründung: 
+Bei Batch-Update befinden sich alle Insert-Befehle in einer oder mehreren Transaktionen (die Anzahl dieser hängt von der Batchgröße ab). => kleinere Anzahl von Transaktionen
+Bei single Update ist jedem Befehl eine Transaktion zugeordnet. => größere Anzahl von Transaktionen
+Das DBMS muss für jede Transaktion die richtige Einstellung einrichten (Bspw. Sperren bzw. Entsperren).

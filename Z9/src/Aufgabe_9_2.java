@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class Aufgabe_9_2 {
     private static final String url = "jdbc:postgresql://localhost/Datenbank"; // Ersetze Datenbank durch deinen Datenbankssnamen
     private static final String user = "postgres";
-    private static final String password = ""; // Bitte hier dein Passwort für Postgresql eingeben Dennis.
+    private static final String password = ""; // Bitte hier dein Passwort für Postgresql eingeben.
     private static Connection con;
     private static Statement stmt;
 
