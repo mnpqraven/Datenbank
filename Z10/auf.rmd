@@ -1,0 +1,19 @@
+---
+title: Übungsblatt 10
+author: Truong, testfran, Zykov
+output: pdf_document
+---
+
+# Aufgabe 2
+
+![](21.jpg)
+
+![](22.jpg)
+
+![](23.jpg)
+
+![](24.jpg)
+
+![](25.jpg)
+
+![](26.jpg)
