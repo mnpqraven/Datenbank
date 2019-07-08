@@ -1,0 +1,19 @@
+CREATE or replace FUNCTION fib (n INT)
+RETURNS TABLE (i INT, fib INT) AS
+$$ 
+DECLARE 
+	previousFib INTEGER;
+	currentFib INTEGER;
+BEGIN
+	i := 1; fib := 1; previousFib := 0; currentFib := 1;
+	LOOP
+		exit when (i = n);
+		i := i +1;
+		fib := currentFib + previousFib;
+		previousFib := currentFib;
+		currentFib := fib;
+		return next;
+	END LOOP;
+END;
+$$
+LANGUAGE PLPGSQL;
