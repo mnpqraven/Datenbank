@@ -77,7 +77,7 @@ public class Aufgabe_9_2 {
         dropTablePoints();
         createTablePoints();
         start = System.currentTimeMillis();
-        loadTuples("D:/Kien's Personal Documents/Uni Documents/Marburg Uni/SS19 (Semester 03)/Datenbanksysteme/Uebung/Z9/points.csv");
+        loadTuples("points.csv");
         end = System.currentTimeMillis();
         diff = end - start;
         System.out.println("Laufzeit von loadTuples: " + diff + "millisekunden.");
@@ -87,7 +87,7 @@ public class Aufgabe_9_2 {
         dropTablePoints();
         createTablePoints();
         start = System.currentTimeMillis();
-        loadTuplesPrepared("D:/Kien's Personal Documents/Uni Documents/Marburg Uni/SS19 (Semester 03)/Datenbanksysteme/Uebung/Z9/points.csv");
+        loadTuplesPrepared("points.csv");
         end = System.currentTimeMillis();
         diff = end - start;
         System.out.println("Laufzeit von loadTuplesPrepared: " + diff + "millisekunden.");
@@ -97,7 +97,7 @@ public class Aufgabe_9_2 {
         dropTablePoints();
         createTablePoints();
         start = System.currentTimeMillis();
-        loadTuplesBatch("D:/Kien's Personal Documents/Uni Documents/Marburg Uni/SS19 (Semester 03)/Datenbanksysteme/Uebung/Z9/points.csv", 10);
+        loadTuplesBatch("points.csv", 10);
         end = System.currentTimeMillis();
         diff = end - start;
         System.out.println("Laufzeit von loadTuplesBatch mit Batchgröße 10: " + diff + "millisekunden.");
@@ -107,7 +107,7 @@ public class Aufgabe_9_2 {
         dropTablePoints();
         createTablePoints();
         start = System.currentTimeMillis();
-        loadTuplesBatch("D:/Kien's Personal Documents/Uni Documents/Marburg Uni/SS19 (Semester 03)/Datenbanksysteme/Uebung/Z9/points.csv", 100);
+        loadTuplesBatch("points.csv", 100);
         end = System.currentTimeMillis();
         diff = end - start;
         System.out.println("Laufzeit von loadTuplesBatch mit Batchgröße 100: " + diff + "millisekunden.");
@@ -117,7 +117,7 @@ public class Aufgabe_9_2 {
         dropTablePoints();
         createTablePoints();
         start = System.currentTimeMillis();
-        loadTuplesBatch("D:/Kien's Personal Documents/Uni Documents/Marburg Uni/SS19 (Semester 03)/Datenbanksysteme/Uebung/Z9/points.csv", 1000);
+        loadTuplesBatch("points.csv", 1000);
         end = System.currentTimeMillis();
         diff = end - start;
         System.out.println("Laufzeit von loadTuplesBatch mit Batchgröße 1000: " + diff + "millisekunden.");
